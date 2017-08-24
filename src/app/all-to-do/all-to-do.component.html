@@ -1,3 +1,15 @@
-<p>
-  all-to-do works!
-</p>
+<h2>My ToDos</h2>
+<ul>
+  <li class="col-md-3">Name</li>
+  <li class="col-md-3">Title</li>
+  <li class="col-md-3">What To Do</li>
+  <li class="col-md-3">Date</li>
+</ul>
+<ul>
+  <li *ngFor="let Data of allData">
+    <p class="col-md-3">{{Data.name}}</p>
+    <p class="col-md-3">{{Data.title}}</p>
+    <p class="col-md-3">{{Data.whatToDo}}</p>
+    <p class="col-md-3">{{Data.date}}</p>
+  </li>
+</ul>

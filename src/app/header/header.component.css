@@ -1,0 +1,27 @@
+ul{
+  list-style: none;
+  text-align: right;
+  margin-top: 15px;
+}
+li{
+  display: inline;
+  margin-right: 20px;
+}
+.links{
+  background: black;
+}
+h1{
+  margin: 10px;
+  color: chocolate;
+}
+.active-link{
+  color: blue;
+}
+a{
+  color: #ffffff;
+  font-size: 20px;
+}
+a:hover, a:focus{
+  text-decoration: none;
+  color: blue;
+}
