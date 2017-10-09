@@ -10,13 +10,15 @@ import { CreateToDoComponent } from './create-to-do/create-to-do.component';
 import { HeaderComponent } from './header/header.component';
 import {AppRoutingModule} from './app-routing.module';
 import {ToDoService} from '../services/to-do.service';
+import { OpeningLoginAndRegisterComponent } from './opening-login-and-register/opening-login-and-register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AllToDoComponent,
     CreateToDoComponent,
-    HeaderComponent
+    HeaderComponent,
+    OpeningLoginAndRegisterComponent
   ],
   imports: [
     BrowserModule,

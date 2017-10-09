@@ -1,15 +1,18 @@
-<h2>My ToDos</h2>
-<ul>
-  <li class="col-md-3">Name</li>
-  <li class="col-md-3">Title</li>
-  <li class="col-md-3">What To Do</li>
-  <li class="col-md-3">Date</li>
-</ul>
-<ul>
-  <li *ngFor="let Data of allData">
-    <p class="col-md-3">{{Data.name}}</p>
-    <p class="col-md-3">{{Data.title}}</p>
-    <p class="col-md-3">{{Data.whatToDo}}</p>
-    <p class="col-md-3">{{Data.date}}</p>
+<div class="row allDataTitle">
+  <div class="col-md-2"><h4>Name</h4></div>
+  <div class="col-md-2"><h4>Title</h4></div>
+  <div class="col-md-5"><h4>What To Do</h4></div>
+  <div class="col-md-2"><h4>Date</h4></div>
+  <div class="col-md-1"><h4>Delete</h4></div>
+</div>
+<ul *ngIf="allData">
+  <li *ngFor="let data of allData" class="allData row">
+    <p class="col-md-2">{{data.name}}</p>
+    <p class="col-md-2">{{data.title}}</p>
+    <p class="col-md-5">{{data.whatToDo}}</p>
+    <p class="col-md-2">{{data.date}}</p>
+    <p class="col-md-1">
+      <span (click)="deleteToDo(data)" class="glyphicon glyphicon-remove"></span>
+    </p>
   </li>
 </ul>

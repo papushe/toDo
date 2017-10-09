@@ -1,0 +1,70 @@
+form {
+  margin-top: 20px;
+}
+h1{
+  text-align: center;
+}
+.createForm .form-group {
+  margin-bottom: 25px;
+}
+.createForm .form-control {
+  border: none;
+  border-bottom: 1px solid gray;
+  border-radius: 0;
+  box-shadow: none;
+}
+.launching{
+  display: block;
+  margin: 0 auto;
+}
+.floating-label-name {
+  position: absolute;
+  pointer-events: none;
+  left: 25px;
+  top: 27px;
+  transition: 0.2s ease all;
+}
+input:focus ~ .floating-label-name,
+input:not(:focus):valid ~ .floating-label-name {
+  top: 5px;
+  bottom: 10px;
+  left: 20px;
+  font-size: 11px;
+  opacity: 1;
+  color: gray;
+}
+
+.floating-label-title {
+  position: absolute;
+  pointer-events: none;
+  left: 25px;
+  top: 86px;
+  transition: 0.2s ease all;
+}
+input:focus ~ .floating-label-title,
+input:not(:focus):valid ~ .floating-label-title {
+  top: 65px;
+  bottom: 10px;
+  left: 20px;
+  font-size: 11px;
+  opacity: 1;
+  color: gray;
+}
+
+.floating-label-whatToDo {
+  position: absolute;
+  pointer-events: none;
+  left: 25px;
+  top: 145px;
+  transition: 0.2s ease all;
+}
+textarea:focus ~ .floating-label-whatToDo,
+textarea:not(:focus):valid ~ .floating-label-whatToDo {
+  top: 124px;
+  bottom: 10px;
+  left: 20px;
+  font-size: 11px;
+  opacity: 1;
+  color: gray;
+}
+

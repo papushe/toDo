@@ -1,23 +1,27 @@
-ul{
-  list-style: none;
-  text-align: right;
-  margin-top: 15px;
-}
-li{
-  display: inline;
-  margin-right: 20px;
-}
-.links{
+.col-md-12{
+  padding: 0;
   background: black;
 }
-h1{
-  margin: 10px;
-  color: chocolate;
+ul {
+  list-style: none;
+  float: right;
+  margin-top: 17px;
+  margin-right: 20px;
+}
+li {
+  display: inline;
+  margin-left: 25px;
+}
+h1 {
+  display: inline-block;
+  margin: 10px 10px 10px 20px;
+  color: coral;
 }
 .active-link{
   color: blue;
 }
-a{
+a {
+  text-decoration: none;
   color: #ffffff;
   font-size: 20px;
 }
