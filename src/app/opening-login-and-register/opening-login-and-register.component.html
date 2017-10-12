@@ -1,9 +1,12 @@
-<span *ngIf="onLogin">
-  <div class="row">
-    <div class="col-md-12">
-      <h1>Login</h1>
-    </div>
+<h1>Welcome to <span class="myToDoList">My ToDo</span> app</h1>
+<p>For register, please press 'Register'</p>
+<p>If you already have an account please enter your email and password, and press 'Login'</p>
+<div class="row">
+  <div class="col-md-12">
+    <app-page-header></app-page-header>
   </div>
+</div>
+<span *ngIf="onLogin">
   <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4 createForm">
@@ -14,22 +17,23 @@
                  required
                  name="email"
                  [(ngModel)]="email">
-          <span class="floating-label-title">Email</span>
+          <span class="floating">Email</span>
         </div>
          <div class="form-group">
           <input type="password"
                  class="form-control"
                  required
                  name="password"
-                 [(ngModel)]="password">
-          <span class="floating-label-name">Password</span>
+                 [(ngModel)]="password"
+                 pattern="[a-z0-9]{8,}">
+          <span class="floating">Password</span><span class="passwordHint"> 8 or more, letters and numbers</span>
         </div>
         <div class="form-group">
           <span class="label label-success" [innerHTML]="alertCreated"></span>
           <span class="label label-danger" [innerHTML]="alertNotCreated"></span>
         </div>
-        <button class="btn btn-default launching" [disabled]="!createForm.form.valid" (click)="login()">Login</button>
-        <button class="btn btn-default launching" (click)="onLoginChange()">Register</button>
+        <button class="btn btn-success launching" [disabled]="!createForm.form.valid" (click)="login()">Login</button>
+        <button class="btn btn-primary launching register" (click)="onLoginChange()">Register</button>
       </form>
     </div>
     <div class="col-md-4"></div>
@@ -37,11 +41,6 @@
 </span>
 
 <span *ngIf="!onLogin">
-  <div class="row">
-    <div class="col-md-12">
-      <h1>Create New ToDo User</h1>
-    </div>
-  </div>
   <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4 createForm">
@@ -52,7 +51,7 @@
                  required
                  name="userName"
                  [(ngModel)]="userName">
-          <span class="floating-label-name">User Name</span>
+          <span class="floating">User Name</span>
         </div>
         <div class="form-group">
           <input type="text"
@@ -60,7 +59,7 @@
                  required
                  name="firstName"
                  [(ngModel)]="firstName">
-          <span class="floating-label-name">First Name</span>
+          <span class="floating-label-firstName floating">First Name</span>
         </div>
         <div class="form-group">
           <input type="text"
@@ -68,7 +67,7 @@
                  required
                  name="lastName"
                  [(ngModel)]="lastName">
-          <span class="floating-label-title">Last Name</span>
+          <span class="floating">Last Name</span>
         </div>
         <div class="form-group">
           <input type="text"
@@ -76,30 +75,34 @@
                  required
                  name="email"
                  [(ngModel)]="email">
-          <span class="floating-label-title">Email</span>
+          <span class="floating">Email</span>
         </div>
         <div class="form-group">
           <input type="password"
                  class="form-control"
                  required
                  name="password"
-                 [(ngModel)]="password">
-          <span class="floating-label-name">Password</span>
+                 [(ngModel)]="password"
+                 pattern="[a-z0-9]{8,}">
+          <span class="floating">Password</span><span class="passwordHint"> 8 or more, letters and numbers</span>
         </div>
         <div class="form-group">
           <input type="password"
                  class="form-control"
                  required
                  name="passwordAgain"
-                 [(ngModel)]="passwordAgain">
-          <span class="floating-label-name">password Again</span>
+                 [(ngModel)]="passwordAgain"
+                 pattern="[a-z0-9]{8,}">
+          <span class="floating">password Again</span><span class="passwordHint again"> 8 or more, letters and numbers</span>
         </div>
+         <span class="label label-success" [innerHTML]="fitPassword"></span>
+        <span class="label label-danger" [innerHTML]="alertNotFitPassword"></span>
         <div class="form-group">
           <span class="label label-success" [innerHTML]="alertCreated"></span>
           <span class="label label-danger" [innerHTML]="alertNotCreated"></span>
         </div>
-        <button class="btn btn-default launching" [disabled]="!createForm.form.valid" (click)="createNewUserForm()">Create new User</button>
-        <button class="btn btn-default launching" (click)="onLoginChange()">Login</button>
+        <button class="btn btn-success launching" [disabled]="!createForm.form.valid" (click)="createNewUserForm()">Create new User</button>
+        <button class="btn btn-primary launching login" (click)="onLoginChange()">Login</button>
       </form>
     </div>
     <div class="col-md-4"></div>

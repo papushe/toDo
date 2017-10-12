@@ -9,24 +9,27 @@ import { Router } from "@angular/router";
   styleUrls: ['./create-to-do.component.css']
 })
 export class CreateToDoComponent implements OnInit {
-  name: string = '';
   title: string = '';
   whatToDo:string = '';
   alertCreated: string = '';
   alertNotCreated: string = '';
   allData: ToDo[];
 
-  constructor(private _toDo: ToDoService, private router: Router) { }
+
+  constructor(private _toDo: ToDoService, private router: Router) {
+    var newTitle =  this._toDo.Page();
+    newTitle.setTitle('Create To Do');
+  }
   ngOnInit() {
-    if(!this._toDo.emailAddress){
+    if(!this._toDo.allUserData){
       this.router.navigate([`/opening-login-and-register`]);
     }
   }
 
-  createNewToDo(email, name, title, whatToDo){
+  createNewToDo(email, title, whatToDo){
     this._toDo
-      .createNewToDo(email, name, title, whatToDo)
-      .subscribe(data => {
+      .createNewToDo(email, title, whatToDo)
+      .subscribe(data => { // why no see successMsg
         this.allData = data,
           console.log(`data: ${data}`);
         },
@@ -41,12 +44,11 @@ export class CreateToDoComponent implements OnInit {
   };
 
   onForm(){
-    this.createNewToDo(this._toDo.emailAddress, this.name, this.title, this.whatToDo);
+    this.createNewToDo(this._toDo.allUserData.email, this.title, this.whatToDo);
     this.clear();
   }
 
   clear(){
-    this.name = null;
     this.title = null;
     this.whatToDo = null;
   }

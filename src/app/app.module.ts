@@ -11,6 +11,10 @@ import { HeaderComponent } from './header/header.component';
 import {AppRoutingModule} from './app-routing.module';
 import {ToDoService} from '../services/to-do.service';
 import { OpeningLoginAndRegisterComponent } from './opening-login-and-register/opening-login-and-register.component';
+import { PageHeaderComponent } from './header/page-header/page-header.component';
+import { MoreComponent } from './more/more.component';
+import { ChangePasswordComponent } from './more/change-password/change-password.component';
+import { DateReversePipe } from '../services/pipes/date-reverse.pipe';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { OpeningLoginAndRegisterComponent } from './opening-login-and-register/o
     AllToDoComponent,
     CreateToDoComponent,
     HeaderComponent,
-    OpeningLoginAndRegisterComponent
+    OpeningLoginAndRegisterComponent,
+    PageHeaderComponent,
+    MoreComponent,
+    ChangePasswordComponent,
+    DateReversePipe
   ],
   imports: [
     BrowserModule,

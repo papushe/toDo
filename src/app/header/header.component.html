@@ -1,7 +1,15 @@
-<div class="col-md-12">
-  <h1 >My ToDo List</h1>
-  <ul  *ngIf="document.location.hash != '#/opening-login-and-register'">
+<div class="col-md-5 col-xs-12">
+  <h1>My ToDo</h1>
+  <app-page-header></app-page-header>
+</div>
+<div class="col-md-7 col-xs-12">
+  <ul>
     <li><a routerLink="/all-to-do" routerLinkActive="active-link">All To Do</a>
     <li><a routerLink="/create-to-do" routerLinkActive="active-link">Create To Do</a></li>
+    <li><a routerLink="/more" routerLinkActive="active-link">More</a></li>
+    <li>
+      <span class="helloUser">Hello, {{userConnected}}</span>
+      <button (click)="logout()">Logout</button>
+    </li>
   </ul>
 </div>

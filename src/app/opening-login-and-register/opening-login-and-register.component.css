@@ -1,0 +1,50 @@
+.createForm .form-group {
+  margin-bottom: 25px;
+  position: relative;
+}
+.createForm .form-control {
+  border: none;
+  border-bottom: 1px solid gray;
+  border-radius: 0;
+  box-shadow: none;
+}
+input{
+  background: lightblue;
+}
+.floating {
+  position: absolute;
+  pointer-events: none;
+  left: 10px;
+  top: 8px;
+  transition: 0.2s ease all;
+}
+input:focus ~ .floating,
+input:not(:focus):valid ~ .floating {
+  top: -13px;
+  left: 0;
+  font-size: 11px;
+  opacity: 1;
+  color: gray;
+}
+.register, .login{
+  float: right;
+}
+.myToDoList{
+  color:coral;
+}
+.passwordHint{
+  color: grey;
+  font-size: 12px;
+  position: absolute;
+  pointer-events: none;
+  left: 75px;
+  top: 11px;
+  transition: 4s ease all;
+}
+input:focus ~ .passwordHint,
+input:not(:focus):valid ~ .passwordHint {
+  display: none;
+}
+.passwordHint.again{
+  left: 114px;
+}

@@ -1,17 +1,15 @@
 <div class="row allDataTitle">
-  <div class="col-md-2"><h4>Name</h4></div>
-  <div class="col-md-2"><h4>Title</h4></div>
-  <div class="col-md-5"><h4>What To Do</h4></div>
-  <div class="col-md-2"><h4>Date</h4></div>
-  <div class="col-md-1"><h4>Delete</h4></div>
+  <div class="allDataElement col-md-3 col-xs-3"><h4>Title</h4></div>
+  <div class="allDataElement col-md-4 col-xs-4"><h4>What To Do</h4></div>
+  <div class="allDataElement col-md-3 col-xs-3"><h4>Date</h4></div>
+  <div class="allDataElement col-md-2 col-xs-2"><h4>Delete</h4></div>
 </div>
 <ul *ngIf="allData">
-  <li *ngFor="let data of allData" class="allData row">
-    <p class="col-md-2">{{data.name}}</p>
-    <p class="col-md-2">{{data.title}}</p>
-    <p class="col-md-5">{{data.whatToDo}}</p>
-    <p class="col-md-2">{{data.date}}</p>
-    <p class="col-md-1">
+  <li *ngFor="let data of allData | dateReverse" class="allData row">
+    <p class="allDataElement col-md-3 col-xs-3">{{data.title}}</p>
+    <p class="allDataElement col-md-4 col-xs-4">{{data.whatToDo}}</p>
+    <p class="allDataElement col-md-3 col-xs-3">{{data.date}}</p>
+    <p class="allDataElement col-md-2 col-xs-2">
       <span (click)="deleteToDo(data)" class="glyphicon glyphicon-remove"></span>
     </p>
   </li>

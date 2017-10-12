@@ -1,5 +1,7 @@
 import { Component,Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
+import {ToDoService} from '../../services/to-do.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -7,10 +9,18 @@ import { DOCUMENT } from '@angular/platform-browser';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+userConnected:string = '';
 
-  constructor (@Inject(DOCUMENT) private document: any) {}
+  constructor (private router: Router, private _toDo: ToDoService, @Inject(DOCUMENT) private document: any) {
+  }
 
   ngOnInit() {
+    this.userConnected = this._toDo.allUserData.userName;
+  }
+
+  logout(){
+    this._toDo.allUserData = null;
+    this.router.navigate([`/opening-login-and-register`]);
   }
 
 }

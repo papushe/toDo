@@ -1,6 +1,7 @@
-.col-md-12{
+.col-md-5, .col-md-7, .col-xs-12{
   padding: 0;
   background: black;
+  min-height: 60px;
 }
 ul {
   list-style: none;
@@ -28,4 +29,37 @@ a {
 a:hover, a:focus{
   text-decoration: none;
   color: blue;
+}
+.helloUser{
+  color: white;
+}
+button{
+  color: red;
+  border: none;
+  background: none;
+}
+@media screen and (max-width: 1000px){
+  h1{
+    font-size: 20px;
+    margin-left: 0;
+  }
+  ul{
+    padding-left: 0;
+    margin-right: 0;
+    margin-top: 11px;
+    float: none;
+  }
+  a{
+    font-size: 14px;
+  }
+  li{
+    margin-left: 10px;
+  }
+  .col-md-5, .col-md-7, .col-xs-12{
+    text-align: center;
+    min-height: 46px;
+  }
+  li:first-child{
+    margin-left: 0;
+  }
 }

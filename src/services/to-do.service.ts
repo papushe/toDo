@@ -12,11 +12,23 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class ToDoService {
 
-  emailAddress:string = '';
-
+  allUserData:any;
+  // public title: any;
+  static title: any;
   constructor( private _http: Http) { }
   // baseUrl = 'https://papushetodo.herokuapp.com';
   baseUrl = 'http://localhost:4300';
+
+  Page(){
+    return {
+      title: function(){
+        return ToDoService.title
+      },
+      setTitle: function(newTitle){
+        ToDoService.title = newTitle;
+      }
+    };
+  }
 
   getAllData(email) {
     return this._http
@@ -28,15 +40,15 @@ export class ToDoService {
 
   login(password, email){
     return this._http
-      .get(`${this.baseUrl}/login/${password}/${email}`)
+      .post(`${this.baseUrl}/login/`, {password:password, email:email})
       .do(this.logResponse)
       .map(this.extractData)
       .catch(this.catchError);
   }
 
-  createNewToDo(email, name, title, whatToDo) {
+  createNewToDo(email, title, whatToDo) {
     return this._http
-      .post(`${this.baseUrl}/createNewToDo/`, {email:email, name:name, title:title, whatToDo: whatToDo})
+      .post(`${this.baseUrl}/createNewToDo/`, {email:email, title:title, whatToDo: whatToDo})
       .do(this.logResponse)
       .map(this.extractData)
       .catch(this.catchError);
@@ -49,13 +61,23 @@ export class ToDoService {
       .map(this.extractData)
       .catch(this.catchError);
   }
-  dropToDo(title: string):Observable<any> {
+  dropToDo(_id: string):Observable<any> {
     return this._http
-      .get(`${this.baseUrl}/dropToDo/${title}`)
+      .post(`${this.baseUrl}/dropToDo/`,{_id:_id})
       .do(this.logResponse)
       .map(this.extractData)
       .catch(this.catchError);
   }
+
+  changePassword (newPassword, oldPassword, email) {
+    return this._http
+      .post(`${this.baseUrl}/changePassword/`, {newPassword:newPassword, oldPassword:oldPassword, email:email})
+      .do(this.logResponse)
+      .map(this.extractData)
+      .catch(this.catchError);
+  }
+
+
   private logResponse(response: Response) {
     console.log(response);
   }

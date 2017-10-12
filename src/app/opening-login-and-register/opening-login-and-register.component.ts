@@ -18,24 +18,32 @@ export class OpeningLoginAndRegisterComponent implements OnInit {
   passwordAgain:string = '';
   alertCreated: string = '';
   alertNotCreated: string = '';
+  alertNotFitPassword:string = '';
+  fitPassword:string = '';
   thisError:string = '';
   allData: User[];
   onLogin:boolean = true;
 
-  constructor(private _toDo: ToDoService, private router: Router) { }
-
+  constructor(private _toDo: ToDoService, private router: Router) {}
 
   ngOnInit() {
+    var newTitle =  this._toDo.Page();
+    if(this.onLogin){
+      newTitle.setTitle('Login');
+    }else{
+      newTitle.setTitle('Register');
+    }
   }
   onLoginChange(){
-    this.onLogin = !this.onLogin
+    this.onLogin = !this.onLogin;
+    this.ngOnInit()
   }
 
   createNewUser(userName, firstName, lastName, email, password) {
     this._toDo
       .createNewUser(password, userName, firstName, lastName, email)
       .subscribe(data => {
-        this.allData = data,
+        this.allData = data[0],
           console.log(`data: ${data}`);
         },
         err =>{
@@ -44,19 +52,20 @@ export class OpeningLoginAndRegisterComponent implements OnInit {
         },
         () => {
           this.successMsg(userName)
+          this.router.navigate([`/all-to-do`]);
         }
         );
   };
   loginNewUser(password, email){
     this._toDo
       .login(password, email)
-      .subscribe(data => { //check wrong password or wrong email
+      .subscribe(data => {
           if(data.error){
             this.thisError = data.error;
-            // this.failureMsg('user', data.error);
             return;
           }
-          this.allData = data,
+          this._toDo.allUserData = data[0],
+            this.userName = this._toDo.allUserData.userName;
             console.log(`data: ${data}`);
         },
         err =>{
@@ -69,31 +78,52 @@ export class OpeningLoginAndRegisterComponent implements OnInit {
       );
   }
   checkBeforeRespond(){
-    if(this.thisError) {
+    if(this.thisError == `Wrong email`) {
       this.failureMsg('email',this.email);
+      this.clear();
       return;
     }
-    this.successMsg(this.email);
-    this._toDo.emailAddress = this.email;
+    if(this.thisError == `Wrong Password`) {
+      this.failureMsg('pass',this.password);
+      this.clear();
+      return;
+    }
+    this.successMsg(this.userName);
     this.router.navigate([`/all-to-do`]);
   }
   login(){
     this.loginNewUser(this.password, this.email);
   }
 
-  createNewUserForm(){
+  createNewUserForm(){ // same email
     if(this.password == this.passwordAgain){
       this.createNewUser(this.userName, this.firstName, this.lastName,this.email, this.password);
+    } else{
+      this.failureMsg('no fit', 'password');
     }
   }
-  successMsg(firstName){
-    this.alertNotCreated= '';
-    this.alertCreated=`Success: <i>${firstName}</i> was Created`;
+  clear(){
+    this.thisError = null;
+    this.userName = null;
+    this.firstName = null;
+    this.lastName = null;
+    this.email = null;
+    this.password = null;
+    this.passwordAgain = null;
   }
+  successMsg(userName){
+    this.alertNotCreated= '';
+    this.alertCreated=`Success: <i>${userName}</i> was Created`;
+  }
+
   failureMsg(type,name){
+    if(type == 'no fit'){
+      this.fitPassword='';
+      this.alertNotFitPassword=`Error: the password not fit`;
+    }
     if(type == 'pass'){
       this.alertCreated='';
-      this.alertNotCreated=`Error: Wrong <i>${name}</i>`;
+      this.alertNotCreated=`Error: Wrong Password, <i>${name}</i>`;
     }
     if(type == 'user'){
       this.alertCreated='';
@@ -101,7 +131,7 @@ export class OpeningLoginAndRegisterComponent implements OnInit {
     }
     if(type == 'email'){
       this.alertCreated='';
-      this.alertNotCreated=`Error: can't login, the email: <i>${name}</i>, not good`;
+      this.alertNotCreated=`Error: can't login, the email: <i>${name}</i>, wrong`;
     }
   }
 }

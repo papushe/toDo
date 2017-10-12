@@ -12,13 +12,15 @@ export class AllToDoComponent implements OnInit {
 
   allData: ToDo[];
 
-  constructor(private _toDo: ToDoService, private router: Router) { }
+  constructor(private _toDo: ToDoService, private router: Router) {
+    var newTitle =  this._toDo.Page();
+    newTitle.setTitle('All To Do');
+  }
   ngOnInit(): any {
-    if(!this._toDo.emailAddress){
+    if(!this._toDo.allUserData){
       this.router.navigate([`/opening-login-and-register`]);
     }
-    this.getAllToDo(this._toDo.emailAddress);
-    console.log(this._toDo.emailAddress);
+    this.getAllToDo(this._toDo.allUserData.email);
   }
 
   getAllToDo(email): void {
@@ -31,12 +33,11 @@ export class AllToDoComponent implements OnInit {
           console.log(`error: ${err}`);
         },
         ()=>{
-        console.log("complete get all todo");
         });
   }
 
   deleteToDo(data: ToDo): void{
-    this._toDo.dropToDo(data.title)
+    this._toDo.dropToDo(data._id)
       .subscribe(data => {
         this.allData = data,
           console.log(`data: ${data}`);
@@ -44,8 +45,8 @@ export class AllToDoComponent implements OnInit {
           console.log(`error: ${err}`);
         },
         ()=>{
+          this.getAllToDo(this._toDo.allUserData.email);
           console.log("complete delete to do");
         });
-    this.ngOnInit();
   }
 }
