@@ -15,7 +15,9 @@ userConnected:string = '';
   }
 
   ngOnInit() {
-    this.userConnected = this._toDo.allUserData.userName;
+    if(this._toDo.allUserData){
+      this.userConnected = this._toDo.allUserData.userName;
+    }
   }
 
   logout(){

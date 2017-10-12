@@ -22,7 +22,7 @@
         <span class="label label-success" [innerHTML]="alertCreated"></span>
         <span class="label label-danger" [innerHTML]="alertNotCreated"></span>
       </div>
-      <button class="btn btn-default launching" [disabled]="!createForm.form.valid" (click)="onForm()">Create new ToDo</button>
+      <button title="Fill in all fields" class="btn btn-primary launching" [disabled]="!createForm.form.valid" (click)="onForm()">Create new ToDo</button>
     </form>
   </div>
   <div class="col-md-4"></div>

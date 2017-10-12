@@ -14,7 +14,7 @@ import { OpeningLoginAndRegisterComponent } from './opening-login-and-register/o
 import { PageHeaderComponent } from './header/page-header/page-header.component';
 import { MoreComponent } from './more/more.component';
 import { ChangePasswordComponent } from './more/change-password/change-password.component';
-import { DateReversePipe } from '../services/pipes/date-reverse.pipe';
+import { DateReversePipe } from '../pipes/date-reverse.pipe';
 
 @NgModule({
   declarations: [

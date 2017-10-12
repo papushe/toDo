@@ -19,7 +19,7 @@ export class ChangePasswordComponent implements OnInit {
 
 
   constructor (private router: Router, private _toDo: ToDoService) {
-    var newTitle =  this._toDo.Page();
+    let newTitle =  this._toDo.Page();
     newTitle.setTitle('Change Password');
   }
 
@@ -27,11 +27,6 @@ export class ChangePasswordComponent implements OnInit {
     if(!this._toDo.allUserData){
       this.router.navigate([`/opening-login-and-register`]);
     }
-  }
-
-  logout(){
-    this._toDo.allUserData.email = '';
-    this.router.navigate([`/opening-login-and-register`]);
   }
 
   changeNewPassword(newPassword, password, email){
@@ -42,7 +37,7 @@ export class ChangePasswordComponent implements OnInit {
             this.thisError = data.error;
             return;
           }
-          this._toDo.allUserData = data[0],
+          this._toDo.allUserData = data[0];
           console.log(`data: ${data}`);
         },
         err =>{
@@ -69,28 +64,38 @@ export class ChangePasswordComponent implements OnInit {
     this.alertNotCreated= '';
     this.fitPassword= '';
     this.alertCreated=`Success: Password was Change`;
+    this.timeOut(this.alertCreated);
   }
+timeOut(name){
+  setTimeout(function() {
+    name = '';
+  }, 8000);
+}
 
   failureMsg(type,name){
     if(type == 'no fit'){
       this.fitPassword='';
       this.alertCreated='';
       this.alertNotFitPassword=`Error: the Old password not fit`;
+      this.timeOut(this.alertNotFitPassword);
     }
     if(type == 'no new'){
       this.fitPassword='';
       this.alertCreated='';
       this.alertNotCreated=`Error: the new password not same`;
+      this.timeOut(this.alertNotCreated);
     }
     if(type == 'pass'){
       this.alertCreated='';
-      this.alertCreated='';
+      this.fitPassword='';
       this.alertNotCreated=`Error: Wrong Password, <i>${name}</i>`;
+      this.timeOut(this.alertNotCreated);
     }
     if(type == 'user'){
       this.alertCreated='';
-      this.alertCreated='';
+      this.fitPassword='';
       this.alertNotCreated=`Error: <i>${name}</i> not Created`;
+      this.timeOut(this.alertNotCreated);
     }
   }
   changePassword(){
@@ -101,9 +106,11 @@ export class ChangePasswordComponent implements OnInit {
         this.clear();
       }else{
         this.failureMsg('no new', 'password');
+        this.clear();
       }
     } else{
       this.failureMsg('no fit', 'password');
+      this.clear();
     }
   }
   clear(){

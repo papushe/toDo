@@ -21,13 +21,12 @@ export class OpeningLoginAndRegisterComponent implements OnInit {
   alertNotFitPassword:string = '';
   fitPassword:string = '';
   thisError:string = '';
-  allData: User[];
   onLogin:boolean = true;
 
   constructor(private _toDo: ToDoService, private router: Router) {}
 
   ngOnInit() {
-    var newTitle =  this._toDo.Page();
+    let newTitle =  this._toDo.Page();
     if(this.onLogin){
       newTitle.setTitle('Login');
     }else{
@@ -43,15 +42,15 @@ export class OpeningLoginAndRegisterComponent implements OnInit {
     this._toDo
       .createNewUser(password, userName, firstName, lastName, email)
       .subscribe(data => {
-        this.allData = data[0],
+          this._toDo.allUserData = data;
           console.log(`data: ${data}`);
         },
         err =>{
-          this.failureMsg('user', userName);
+          this.failureMsg('user', this._toDo.allUserData.userName);
           console.log(`error: ${err}`);
         },
         () => {
-          this.successMsg(userName)
+          this.successMsg(this._toDo.allUserData.userName);
           this.router.navigate([`/all-to-do`]);
         }
         );
@@ -64,8 +63,7 @@ export class OpeningLoginAndRegisterComponent implements OnInit {
             this.thisError = data.error;
             return;
           }
-          this._toDo.allUserData = data[0],
-            this.userName = this._toDo.allUserData.userName;
+          this._toDo.allUserData = data[0];
             console.log(`data: ${data}`);
         },
         err =>{
@@ -88,8 +86,10 @@ export class OpeningLoginAndRegisterComponent implements OnInit {
       this.clear();
       return;
     }
-    this.successMsg(this.userName);
-    this.router.navigate([`/all-to-do`]);
+    if(this._toDo.allUserData){
+      this.successMsg(this._toDo.allUserData.userName);
+      this.router.navigate([`/all-to-do`]);
+    }
   }
   login(){
     this.loginNewUser(this.password, this.email);
@@ -111,27 +111,46 @@ export class OpeningLoginAndRegisterComponent implements OnInit {
     this.password = null;
     this.passwordAgain = null;
   }
+  timeOut(name){
+    setTimeout(function() {
+      name = '';
+    }, 8000);
+  }
+
   successMsg(userName){
     this.alertNotCreated= '';
     this.alertCreated=`Success: <i>${userName}</i> was Created`;
+    this.timeOut(this.alertCreated);
   }
 
   failureMsg(type,name){
     if(type == 'no fit'){
       this.fitPassword='';
       this.alertNotFitPassword=`Error: the password not fit`;
+      setTimeout(function() {
+        this.alertNotFitPassword = '';
+      }, 8000);
     }
     if(type == 'pass'){
       this.alertCreated='';
       this.alertNotCreated=`Error: Wrong Password, <i>${name}</i>`;
+      setTimeout(function() {
+        this.alertNotCreated = '';
+      }, 8000);
     }
     if(type == 'user'){
       this.alertCreated='';
       this.alertNotCreated=`Error: <i>${name}</i> not Created`;
+      setTimeout(function() {
+        this.alertNotCreated = '';
+      }, 8000);
     }
     if(type == 'email'){
       this.alertCreated='';
       this.alertNotCreated=`Error: can't login, the email: <i>${name}</i>, wrong`;
+      setTimeout(function() {
+        this.alertNotCreated = '';
+      }, 8000);
     }
   }
 }

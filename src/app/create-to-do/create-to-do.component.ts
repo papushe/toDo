@@ -17,7 +17,7 @@ export class CreateToDoComponent implements OnInit {
 
 
   constructor(private _toDo: ToDoService, private router: Router) {
-    var newTitle =  this._toDo.Page();
+    let newTitle =  this._toDo.Page();
     newTitle.setTitle('Create To Do');
   }
   ngOnInit() {
@@ -29,8 +29,8 @@ export class CreateToDoComponent implements OnInit {
   createNewToDo(email, title, whatToDo){
     this._toDo
       .createNewToDo(email, title, whatToDo)
-      .subscribe(data => { // why no see successMsg
-        this.allData = data,
+      .subscribe(data => {
+        this.allData = data;
           console.log(`data: ${data}`);
         },
         err =>{
@@ -52,12 +52,19 @@ export class CreateToDoComponent implements OnInit {
     this.title = null;
     this.whatToDo = null;
   }
+  timeOut(name){
+    setTimeout(function() {
+      name = '';
+    }, 8000);
+  }
   successMsg(title){
     this.alertNotCreated= '';
     this.alertCreated=`Success: <i>${title}</i> was Created`;
+    this.timeOut(this.alertCreated);
   }
   failureMsg(val){
     this.alertCreated='';
-    this.alertNotCreated=`Error: <i>${val.createMixName}</i> not Created, tracks must be from 1 to 9`;
+    this.alertNotCreated=`Error: <i>${val.createMixName}</i> not Created`;
+    this.timeOut(this.alertNotCreated);
   }
 }
