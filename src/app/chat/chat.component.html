@@ -1,0 +1,25 @@
+<div class="col-md-2"></div>
+<div class="col-md-8 col-xs-12">
+  <div class="row chat">
+    <div class="col-md-8">
+    <input type="text"
+           class="form-control"
+           name="message"
+           (keypress)="onEnter()"
+           [(ngModel)]="message">
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-success sendChat" (click)="sendMessage()" [disabled]="!message">Send</button>
+      <button class="btn btn-danger sendChat" (click)="clearChat()">Clear Chat</button>
+      <button class="btn btn-primary sendChat" (click)="clearChat()">Save Chat</button>
+    </div>
+  </div>
+  <div *ngFor="let message of messages">
+    <span [ngStyle]="{'color': getColor(message) }">{{message.userName}}:</span> {{message.text}} <span class="messageDate">{{message.date | date : 'HH:mm:ss'}}</span>
+  </div>
+
+  <div *ngFor="let message of usersConnected">
+    <span [ngStyle]="{'color': getColor(message) }">{{message.text}}{{message.userName}}</span> <span class="messageDate">{{message.date | date : 'HH:mm:ss'}}</span>
+  </div>
+</div>
+<div class="col-md-2"></div>

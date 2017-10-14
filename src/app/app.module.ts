@@ -15,6 +15,8 @@ import { PageHeaderComponent } from './header/page-header/page-header.component'
 import { MoreComponent } from './more/more.component';
 import { ChangePasswordComponent } from './more/change-password/change-password.component';
 import { DateReversePipe } from '../pipes/date-reverse.pipe';
+import { ChatComponent } from './chat/chat.component';
+import {ChatService} from '../services/chat.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { DateReversePipe } from '../pipes/date-reverse.pipe';
     PageHeaderComponent,
     MoreComponent,
     ChangePasswordComponent,
-    DateReversePipe
+    DateReversePipe,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,7 @@ import { DateReversePipe } from '../pipes/date-reverse.pipe';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [ToDoService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [ToDoService, {provide: LocationStrategy, useClass: HashLocationStrategy}, ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

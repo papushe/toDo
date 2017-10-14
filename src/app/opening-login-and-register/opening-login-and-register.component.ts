@@ -51,7 +51,7 @@ export class OpeningLoginAndRegisterComponent implements OnInit {
         },
         () => {
           this.successMsg(this._toDo.allUserData.userName);
-          this.router.navigate([`/all-to-do`]);
+          this.onLoginChange();
         }
         );
   };

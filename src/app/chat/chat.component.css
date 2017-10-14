@@ -1,0 +1,11 @@
+.row.chat{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.sendChat{
+  padding: 4px 12px;
+  margin-top: 2px;
+}
+.messageDate{
+  margin-left: 20px;
+}

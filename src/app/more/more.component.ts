@@ -16,6 +16,4 @@ export class MoreComponent implements OnInit {
       this.router.navigate([`/opening-login-and-register`]);
     }
   }
-
-
 }
