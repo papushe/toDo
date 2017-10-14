@@ -6,7 +6,7 @@ export class ChatService implements OnInit{
 
   constructor() { }
 
-  private url = window.location.hostname;// + ':5000';
+  private url = window.location.hostname + ':5000';
   // private url = 'https://papushetodo.herokuapp.com';
 
   private socket;
