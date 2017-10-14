@@ -13,7 +13,6 @@ import 'rxjs/add/observable/throw';
 export class ToDoService {
 
   allUserData:any;
-  // public title: any;
   static title: any;
   constructor( private _http: Http) { }
   // baseUrl = 'https://papushetodo.herokuapp.com';
