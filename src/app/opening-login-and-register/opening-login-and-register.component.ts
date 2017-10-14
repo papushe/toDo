@@ -75,7 +75,7 @@ export class OpeningLoginAndRegisterComponent implements OnInit {
         }
       );
   }
-  checkBeforeRespond(){
+  checkBeforeRespond(){ //control Server Error
     if(this.thisError == `Wrong email`) {
       this.failureMsg('email',this.email);
       this.clear();
