@@ -6,7 +6,7 @@ export class ChatService implements OnInit{
 
   constructor() { }
 
-  private url = window.location.hostname + ':5000';
+  private url = window.location.hostname;// + ':5000';
   // private url = 'https://papushetodo.herokuapp.com';
 
   private socket;
@@ -29,7 +29,7 @@ export class ChatService implements OnInit{
 
   getMessages() {
     let observable = new Observable(observer => {
-      this.socket = io(this.url);
+      this.socket = io(); //this.url
 
       this.socket.on('message', (data) => {
         observer.next(data);
