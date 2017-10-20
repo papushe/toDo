@@ -6,10 +6,11 @@ export class ChatService implements OnInit{
 
   constructor() { }
 
-  private url = window.location.hostname;// + ':5000';
-  // private url = 'https://papushetodo.herokuapp.com';
+  private url = 'http://localhost:5000';
+  // private url = 'https://papushe-todo.herokuapp.com';
 
   private socket;
+  port: any;
 
   ngOnInit(){
 
@@ -27,12 +28,18 @@ export class ChatService implements OnInit{
 
   }
 
+
+
   getMessages() {
     let observable = new Observable(observer => {
-      this.socket = io(); //this.url
+      this.socket = io(this.url);
 
       this.socket.on('message', (data) => {
         observer.next(data);
+      });
+
+      this.socket.on('port', (port) => {
+        observer.next(port);
       });
 
       return () => {

@@ -21,8 +21,8 @@ userConnected:string = '';
   }
 
   logout(){
-    this._toDo.allUserData = null;
     this.router.navigate([`/opening-login-and-register`]);
+    this._toDo.allUserData = null;
   }
 
 }

@@ -101,9 +101,9 @@ import { Router } from "@angular/router";
     }
   }
   ngOnDestroy() {
-    if(this._toDo.allUserData){
+    // if(this._toDo.allUserData){
       this.disconnecting();
       this.connection.unsubscribe();
-    }
+    // }
   }
 }
