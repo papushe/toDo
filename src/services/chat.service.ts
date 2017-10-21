@@ -1,14 +1,15 @@
 import {OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import * as io from 'socket.io-client';
+import {ToDoService} from '../services/to-do.service';
+import { Injectable, Inject } from '@angular/core';
 
+@Injectable()
 export class ChatService implements OnInit{
 
-  constructor() { }
+  constructor(private _toDo: ToDoService) { }
 
-  // private url = 'http://localhost:5000';
-  private url =  window.location.hostname+':8778';
-  // private url = 'http://www.papushe.com/toDo:5000';
+  private url =  window.location.hostname+':'+this._toDo.allUserData.__v;
 
   private socket;
   port: any;
