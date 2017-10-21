@@ -7,7 +7,7 @@ export class ChatService implements OnInit{
   constructor() { }
 
   // private url = 'http://localhost:5000';
-  private url =  window.location.hostname+':5000';
+  private url =  window.location.hostname+':8778';
   // private url = 'http://www.papushe.com/toDo:5000';
 
   private socket;
