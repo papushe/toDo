@@ -15,7 +15,7 @@ export class ToDoService {
   allUserData:any;
   static title: any;
   constructor( private _http: Http) { }
-  baseUrl = 'https://papushe-todo.herokuapp.com';
+  baseUrl = 'http://papushe-todo.herokuapp.com';
   // baseUrl = 'http://localhost:4300';
 
   Page(){

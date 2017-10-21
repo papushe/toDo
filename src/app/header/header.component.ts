@@ -23,6 +23,7 @@ userConnected:string = '';
   logout(){
     this.router.navigate([`/opening-login-and-register`]);
     this._toDo.allUserData = null;
+
   }
 
 }
