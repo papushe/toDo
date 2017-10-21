@@ -9,7 +9,7 @@ export class ChatService implements OnInit{
 
   constructor(private _toDo: ToDoService) { }
 
-  private url =  window.location.hostname+'/toDo:'+this._toDo.allUserData.__v;
+  private url =  window.location.hostname+':'+this._toDo.allUserData.__v;
 
   private socket;
   port: any;
