@@ -48,7 +48,7 @@
     "typescript": "~2.3.3"
   },
   "proxy": {
-    "/services/*": {
+    "/app/*": {
       "target": "http://www.papushe.com:5000"
     }
   }
