@@ -12,7 +12,6 @@ export class ChatService implements OnInit{
   private url =  window.location.hostname+':'+this._toDo.allUserData.__v;
 
   private socket;
-  port: any;
 
   ngOnInit(){
 
@@ -30,18 +29,12 @@ export class ChatService implements OnInit{
 
   }
 
-
-
   getMessages() {
     let observable = new Observable(observer => {
       this.socket = io(this.url);
 
       this.socket.on('message', (data) => {
         observer.next(data);
-      });
-
-      this.socket.on('port', (port) => {
-        observer.next(port);
       });
 
       return () => {
