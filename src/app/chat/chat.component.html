@@ -1,7 +1,7 @@
-<div class="col-md-2">
+<div class="col-md-3">
   <h3>connected users</h3>
-  <div *ngFor="let message of usersConnected">
-    <span [ngStyle]="{'color': getColor(message) }">{{message.text}}{{message.userName}}</span> <span class="messageDate">{{message.date | date : 'HH:mm:ss'}}</span>
+  <div *ngFor="let message of newUserConnected">
+    <span [ngStyle]="{'color': getColor(message) }">{{message.userName}} - {{message.text}}</span> <span class="messageDate">{{message.date | date : 'HH:mm:ss'}}</span>
   </div>
 </div>
 <div class="col-md-8 col-xs-12">
@@ -23,4 +23,4 @@
     <span [ngStyle]="{'color': getColor(message) }">{{message.userName}}:</span> {{message.text}} <span class="messageDate">{{message.date | date : 'HH:mm:ss'}}</span>
   </div>
 </div>
-<div class="col-md-2"></div>
+<div class="col-md-1"></div>

@@ -13,17 +13,34 @@ import { Router } from "@angular/router";
   messages = [];
   connection;
   message;
-  usersConnected =[];
+  newUserConnected =[];
   colorObj = [];
 
-  constructor(private chatService:ChatService, private _toDo: ToDoService, private router: Router) {}
+  constructor(private chatService:ChatService, private _toDo: ToDoService, private router: Router) {
+    let newTitle =  this._toDo.Page();
+    newTitle.setTitle('Chat');
+  }
+
+  ngOnInit() {
+    if(!this._toDo.allUserData){
+      this.router.navigate([`/opening-login-and-register`]);
+      return;
+    }
+    this.connection = this.chatService.getMessages()
+      .subscribe(message => {
+        this.checkNewMessage(message);
+      });
+    if(this._toDo.allUserData){
+      this.newConnection();
+    }
+  }
 
   sendMessage(){
-    this.chatService.sendMessage('add-message', this.message, this._toDo.allUserData.userName);
+    this.chatService.sendMessage('new-message', this.message, this._toDo.allUserData.userName);
     this.message = '';
   }
   newConnection(){
-    this.chatService.sendMessage('newConnection', this.message, this._toDo.allUserData.userName);
+    this.chatService.sendMessage('new-connection', this.message, this._toDo.allUserData.userName);
     this.message = '';
   }
   disconnecting(){
@@ -57,7 +74,7 @@ import { Router } from "@angular/router";
   addDateToMessage(type, obj){
     obj.date = new Date();
     if(type == 'user'){
-      this.usersConnected.push(obj);
+      this.newUserConnected.push(obj);
     } else {
       this.messages.push(obj);
     }
@@ -70,36 +87,24 @@ import { Router } from "@angular/router";
   }
   clearChat(){
     this.messages = [];
-    this.usersConnected = [];
+    this.newUserConnected = [];
   }
-  checkNewMessage(message){
-    if(message.type == 'subscribe'){
-      this.updateColor(message);
-      this.addDateToMessage('user' ,message);
+  checkNewMessage(callback){
+    if(callback.type == 'subscribe'){
+      this.updateColor(callback);
+      this.addDateToMessage('user' ,callback);
       return;
     }
-    else if(message.type == 'new-message'){
-      this.addDateToMessage('newMessage' ,message);
+    else if(callback.type == 'new-message'){
+      this.addDateToMessage('new-message' ,callback);
       return;
     }
-    else if(message.type == 'user-disconnect'){
-      this.addDateToMessage('user' ,message);
+    else if(callback.type == 'user-disconnect'){
+      this.addDateToMessage('user' ,callback);
       return;
-    }
-  }
-  ngOnInit() {
-    if(!this._toDo.allUserData){
-      this.router.navigate([`/opening-login-and-register`]);
-      return;
-    }
-    this.connection = this.chatService.getMessages()
-      .subscribe(message => {
-        this.checkNewMessage(message);
-    });
-    if(this._toDo.allUserData){
-      this.newConnection();
     }
   }
+
   ngOnDestroy() {
     if(this._toDo.allUserData){
       this.disconnecting();

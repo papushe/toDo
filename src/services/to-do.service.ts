@@ -29,9 +29,16 @@ export class ToDoService {
     };
   }
 
+  // getAllData(email) {
+  //   return this._http
+  //     .get(`${this.baseUrl}/getAllToDo/${email}`)
+  //     .do(this.logResponse)
+  //     .map(this.extractData)
+  //     .catch(this.catchError);
+  // }
   getAllData(email) {
     return this._http
-      .get(`${this.baseUrl}/getAllToDo/${email}`)
+      .post(`${this.baseUrl}/getAllToDo/`,{email:email})
       .do(this.logResponse)
       .map(this.extractData)
       .catch(this.catchError);

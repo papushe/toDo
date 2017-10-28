@@ -2,6 +2,7 @@ import { Component,Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import {ToDoService} from '../../services/to-do.service';
 import { Router } from "@angular/router";
+import {ChatService} from '../../services/chat.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,7 @@ import { Router } from "@angular/router";
 export class HeaderComponent implements OnInit {
 userConnected:string = '';
 
-  constructor (private router: Router, private _toDo: ToDoService, @Inject(DOCUMENT) private document: any) {
+  constructor (private chatService:ChatService,private router: Router, private _toDo: ToDoService, @Inject(DOCUMENT) private document: any) {
   }
 
   ngOnInit() {
@@ -21,6 +22,9 @@ userConnected:string = '';
   }
 
   logout(){
+    if(this.router.url == '/chat'){
+      this.chatService.sendMessage('disconnect', '', this._toDo.allUserData.userName);
+    }
     this.router.navigate([`/opening-login-and-register`]);
     this._toDo.allUserData = null;
 
