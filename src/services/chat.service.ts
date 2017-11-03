@@ -34,7 +34,7 @@ export class ChatService implements OnInit{
 
   getMessages() {
     let observable = new Observable(observer => {
-      var url = window.location.hostname+':'+33;
+      var url = window.location.hostname+':'+this._toDo.allUserData.__v;
       this.socket = io(url);
 
       this.socket.on('connect_error', (data) => {
