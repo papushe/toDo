@@ -1,26 +1,35 @@
-<div class="col-md-3">
-  <h3>connected users</h3>
-  <div *ngFor="let message of newUserConnected">
-    <span [ngStyle]="{'color': getColor(message) }">{{message.userName}} - {{message.text}}</span> <span class="messageDate">{{message.date | date : 'HH:mm:ss'}}</span>
-  </div>
-</div>
-<div class="col-md-8 col-xs-12">
-  <div class="row chat">
-    <div class="col-md-8">
-    <input type="text"
-           class="form-control"
-           name="message"
-           (keypress)="onEnter()"
-           [(ngModel)]="message">
-    </div>
-    <div class="col-md-4">
-      <button class="btn btn-success sendChat" (click)="sendMessage()" [disabled]="!message">Send</button>
-      <button class="btn btn-danger sendChat" (click)="clearChat()">Clear Chat</button>
-      <button class="btn btn-primary sendChat" (click)="clearChat()">Save Chat</button>
+<span *ngIf="tryToConnect">
+  <h4>Try to connect</h4>
+</span>
+<span *ngIf="connectionFailed">
+  <h4>Connection error</h4>
+</span>
+<span *ngIf="!tryToConnect && !connectionFailed">
+  <div class="col-md-3 col-xs-12 onlineUsers">
+    <h3>Online Users</h3>
+    <div *ngFor="let message of newUserConnectedReverse">
+      <span class="col-md-8 col-xs-8" [ngStyle]="{'color': getColor(message) }">{{message.userName}} - {{message.text}}</span>
+      <span class="col-md-4 col-xs-4 dateOnlineUsers">{{message.date | date : 'HH:mm:ss'}}</span>
     </div>
   </div>
-  <div *ngFor="let message of messages">
-    <span [ngStyle]="{'color': getColor(message) }">{{message.userName}}:</span> {{message.text}} <span class="messageDate">{{message.date | date : 'HH:mm:ss'}}</span>
+  <div class="col-md-6 col-xs-12">
+    <div class="row chat">
+      <div class="col-md-12 col-xs-12">
+      <input type="text"
+             class="form-control"
+             name="message"
+             (keypress)="onEnter()"
+             [(ngModel)]="message">
+      </div>
+    </div>
+    <div *ngFor="let message of messagesReverse" class="row">
+      <span class="col-md-9 col-xs-9 userNameAndMessage"> <span [ngStyle]="{'color': getColor(message) }">{{message.userName}}: </span> <span> {{message.text}} </span> </span>
+      <span class="dateMessage col-md-3 col-xs-3">{{message.date | date : 'HH:mm:ss'}}</span>
+    </div>
   </div>
-</div>
-<div class="col-md-1"></div>
+  <div class="col-md-3 col-xs-12 btns">
+    <button class="btn btn-success sendChat" (click)="sendMessage()" [disabled]="!ifEmpty(message)">Send</button>
+    <button class="btn btn-danger sendChat" (click)="clearChat()">Clear Chat</button>
+    <button class="btn btn-primary sendChat" (click)="clearChat()">Save Chat</button>
+  </div>
+</span>

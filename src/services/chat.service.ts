@@ -1,14 +1,16 @@
 import {OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import * as io from 'socket.io-client';
-import {ToDoService} from '../services/to-do.service';
+import {ToDoService} from './to-do.service';
 import { Injectable, Inject } from '@angular/core';
 import { Router } from "@angular/router";
+
 
 @Injectable()
 export class ChatService implements OnInit{
 
   constructor(private _toDo: ToDoService,private router: Router) { }
+  socket:any;
 
   ngOnInit() {
     if (!this._toDo.allUserData) {
@@ -16,11 +18,6 @@ export class ChatService implements OnInit{
       return;
     }
   }
-
-  private url =  window.location.hostname+':'+this._toDo.allUserData.__v;
-
-  private socket;
-
 
   sendMessage(type, message, callback){
     if(type == 'new-message'){
@@ -37,7 +34,16 @@ export class ChatService implements OnInit{
 
   getMessages() {
     let observable = new Observable(observer => {
-      this.socket = io(this.url);
+      var url = window.location.hostname+':'+33;
+      this.socket = io(url);
+
+      this.socket.on('connect_error', (data) => {
+        observer.next(data);
+      });
+
+      this.socket.on('connect_failed', (data) => {
+        observer.next(data);
+      });
 
       this.socket.on('message', (data) => {
         observer.next(data);

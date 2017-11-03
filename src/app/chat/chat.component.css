@@ -6,6 +6,23 @@
   padding: 4px 12px;
   margin-top: 2px;
 }
-.messageDate{
-  margin-left: 20px;
+.btns{
+  margin-top: 10px;
+  text-align: center;
 }
+.onlineUsers h3{
+  text-align: center;
+}
+.dateMessage, .dateOnlineUsers{
+  text-align: right;
+}
+.dateMessage{
+   padding-right: 25px;
+}
+.colorBlack{
+  color: black;
+}
+.userNameAndMessage{
+  padding-left: 25px;
+}
+

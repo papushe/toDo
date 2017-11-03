@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {ChatService} from '../../services/chat.service';
 import {ToDoService} from '../../services/to-do.service';
 import { Router } from "@angular/router";
+import { DateReversePipe } from '../../pipes/date-reverse.pipe';
 
 @Component({
   selector: 'app-chat',
@@ -14,9 +15,16 @@ import { Router } from "@angular/router";
   connection;
   message;
   newUserConnected =[];
+  newUserConnectedReverse =[];
   colorObj = [];
+  messagesReverse = [];
+  tryToConnect:boolean = true;
+  connectionFailed:boolean = true;
 
-  constructor(private chatService:ChatService, private _toDo: ToDoService, private router: Router) {
+  constructor(private chatService:ChatService,
+              private _toDo: ToDoService,
+              private router: Router,
+              private dataReverse: DateReversePipe) {
     let newTitle =  this._toDo.Page();
     newTitle.setTitle('Chat');
   }
@@ -35,6 +43,11 @@ import { Router } from "@angular/router";
     }
   }
 
+  ifEmpty(str){
+    if(str){
+      return str.replace(/\s/g, '').length;
+    }
+  }
   sendMessage(){
     this.chatService.sendMessage('new-message', this.message, this._toDo.allUserData.userName);
     this.message = '';
@@ -75,32 +88,55 @@ import { Router } from "@angular/router";
     obj.date = new Date();
     if(type == 'user'){
       this.newUserConnected.push(obj);
+      this.newUserConnectedReverse = this.dataReverse.transform(this.newUserConnected)
     } else {
       this.messages.push(obj);
+      this.messagesReverse = this.dataReverse.transform(this.messages);
     }
   }
 
   onEnter(e) {
-    let event = e || window.event,
+    if(this.message.replace(/\s/g, '').length){
+      let event = e || window.event,
         charCode = event.which || event.keyCode;
-    charCode == '13' ? this.sendMessage() : '';
+      charCode == '13' ? this.sendMessage() : '';
+    }
+
   }
   clearChat(){
     this.messages = [];
+    this.messagesReverse = [];
     this.newUserConnected = [];
+    this.newUserConnectedReverse = [];
   }
   checkNewMessage(callback){
     if(callback.type == 'subscribe'){
       this.updateColor(callback);
       this.addDateToMessage('user' ,callback);
+      this.tryToConnect = false;
+      this.connectionFailed = false;
       return;
     }
     else if(callback.type == 'new-message'){
       this.addDateToMessage('new-message' ,callback);
+      this.tryToConnect = false;
+      this.connectionFailed = false;
       return;
     }
     else if(callback.type == 'user-disconnect'){
       this.addDateToMessage('user' ,callback);
+      this.tryToConnect = false;
+      this.connectionFailed = false;
+      return;
+    }
+    else if(callback.type == 'TransportError'){
+      this.tryToConnect = false;
+      this.connectionFailed = true;
+      return;
+    }
+    else if(callback.type == 'connect_error'){
+      this.tryToConnect = false;
+      this.connectionFailed = true;
       return;
     }
   }

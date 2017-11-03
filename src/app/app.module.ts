@@ -37,7 +37,7 @@ import {ChatService} from '../services/chat.service';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [ToDoService, {provide: LocationStrategy, useClass: HashLocationStrategy}, ChatService],
+  providers: [ToDoService, {provide: LocationStrategy, useClass: HashLocationStrategy}, ChatService, DateReversePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
