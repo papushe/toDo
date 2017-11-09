@@ -12,7 +12,7 @@ ul{
 p{
   text-align: center;
 }
-span.glyphicon-remove:hover{
+.removeButton:hover{
   color: red;
 }
 li:hover{
@@ -20,9 +20,25 @@ li:hover{
 }
 .allData{
   padding-top: 10px;
+  transition: 400ms background ease;
 }
 .allDataElement{
   padding: 0;
+}
+.inputTitleShow,.inputWhatToDoShow{
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  width: 90%;
+}
+.updateBackgroundColor{
+  background: lightgreen;
+}
+.updateWrongBackgroundColor{
+  background: lightcoral;
+}
+.removeButton{
+  cursor: pointer;
 }
 @media screen and (max-width: 672px){
   h4{

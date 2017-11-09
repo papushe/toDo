@@ -28,14 +28,6 @@ export class ToDoService {
       }
     };
   }
-
-  // getAllData(email) {
-  //   return this._http
-  //     .get(`${this.baseUrl}/getAllToDo/${email}`)
-  //     .do(this.logResponse)
-  //     .map(this.extractData)
-  //     .catch(this.catchError);
-  // }
   getAllData(email) {
     return this._http
       .post(`${this.baseUrl}/getAllToDo/`,{email:email})
@@ -43,7 +35,13 @@ export class ToDoService {
       .map(this.extractData)
       .catch(this.catchError);
   }
-
+  updateToDo(title, whatToDo, _id) {
+    return this._http
+      .post(`${this.baseUrl}/updateAllToDo/`,{title:title, whatToDo:whatToDo, _id:_id})
+      .do(this.logResponse)
+      .map(this.extractData)
+      .catch(this.catchError);
+  }
   login(password, email){
     return this._http
       .post(`${this.baseUrl}/login/`, {password:password, email:email})

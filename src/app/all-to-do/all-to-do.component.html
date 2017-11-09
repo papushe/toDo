@@ -4,13 +4,34 @@
   <div class="allDataElement col-md-3 col-xs-3"><h4>Date</h4></div>
   <div class="allDataElement col-md-2 col-xs-2"><h4>Delete</h4></div>
 </div>
-<ul *ngIf="allData">
-  <li *ngFor="let data of allData | dateReverse" class="allData row">
-    <p class="allDataElement col-md-3 col-xs-3">{{data.title}}</p>
-    <p class="allDataElement col-md-4 col-xs-4">{{data.whatToDo}}</p>
+
+<ul *ngIf="allDataReverse">
+  <li *ngFor="let data of allDataReverse; let i=index"
+      class="allData row"
+      [attr.title]="!(i == thisLi) ? 'Double click to update this record' : 'Double click to save changes'"
+      [ngClass]="{'updateBackgroundColor': (changeBackgroundColor == true) && (i == backgroundIndex),
+                    'updateWrongBackgroundColor': (changeWrongBackgroundColor == true) && (i == backgroundIndex)}"
+      (dblclick)="toggleShowForm(i, data)">
+    <p class="allDataElement col-md-3 col-xs-3" *ngIf="!(i == thisLi)">{{data.title}}</p>
+    <p class="col-md-3 col-xs-3" *ngIf="showForm && i == thisLi">
+      <input type="text"
+             required
+             class="inputTitleShow"
+             name="title"
+             [(ngModel)]="data.title">
+    </p>
+    <p class="allDataElement col-md-4 col-xs-4" *ngIf="!(i == thisLi)">{{data.whatToDo}}</p>
+    <p class="col-md-4 col-xs-4" *ngIf="showForm && i == thisLi">
+      <input type="text"
+             required
+             class="inputWhatToDoShow"
+             name="whatToDo"
+             [(ngModel)]="data.whatToDo">
+    </p>
     <p class="allDataElement col-md-3 col-xs-3">{{data.date}}</p>
     <p class="allDataElement col-md-2 col-xs-2">
-      <span (click)="deleteToDo(data)" class="glyphicon glyphicon-remove"></span>
+      <span (click)="deleteToDo(data)" class="glyphicon glyphicon-remove removeButton"></span>
     </p>
   </li>
 </ul>
+
